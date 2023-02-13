@@ -12,12 +12,14 @@ public class PlayerControler : MonoBehaviour
 
     private Transform gun;
     private bool fireButtonDown = false;
+
+    private CameraScript cs;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gun = transform.Find("gun");
-        
+        cs = Camera.main.GetComponent<CameraScript>();      
     }
 
     // Update is called once per frame
@@ -26,25 +28,27 @@ public class PlayerControler : MonoBehaviour
         float v, h;
         v = Input.GetAxis("Vertical");
         h = Input.GetAxis("Horizontal");
-        
-        //if(v !=0 && h !=0)
-           controlls = new Vector2(h, v);
+        //if(v != 0 && h != 0)
+        controlls = new Vector2(h, v);
 
-        //check and reposition ship if off screen (x<-42 y<-34)
-        if (Mathf.Abs(transform.position.x) > 39)
+        float maxHorizontal = cs.worldWidth / 2;
+        float maxVertical = cs.worldHeight / 2;
+
+        if (Mathf.Abs(transform.position.x) > maxHorizontal)
         {
-            Vector3 newPosition = new Vector3(transform.position.x * -1,
-                0,
-                transform.position.z);
+            Vector3 newPosition = new Vector3(transform.position.x * -0.95f,
+                                              0,
+                                              transform.position.z);
             transform.position = newPosition;
         }
-        if (Mathf.Abs(transform.position.z) > 32)
-                {
-                    Vector3 newPosition = new Vector3(transform.position.x, 0, transform.position.z * -1);
-
-                   transform.position = newPosition;
-                }
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Mathf.Abs(transform.position.z) > maxVertical)
+        {
+            Vector3 newPosition = new Vector3(transform.position.x,
+                                              0,
+                                              transform.position.z * -0.95f);
+            transform.position = newPosition;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             fireButtonDown = true;
         }
