@@ -70,6 +70,23 @@ public class PlayerControler : MonoBehaviour
             fireButtonDown= false;
         }
         }
-        
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject other = collision.gameObject;
+        if (other.CompareTag("Enemy"))
+        {
+            GameObject GameOverScreen = GameObject.Find("Canvas").transform.Find("GameOverScreen").gameObject;
+            GameOverScreen.SetActive(true);
+
+            Time.timeScale = 0;
+
+            Destroy(other);
+
+            Destroy(gameObject);
+
+        }
+
+    }
+
 }
 

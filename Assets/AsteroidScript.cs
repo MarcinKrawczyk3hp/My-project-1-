@@ -31,4 +31,13 @@ public class AsteroidScript : MonoBehaviour
     {
 
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject target = collision.gameObject;
+        if (target.CompareTag("Bullet"))
+        {
+            Destroy(target);
+        }
+    }
+
 }
