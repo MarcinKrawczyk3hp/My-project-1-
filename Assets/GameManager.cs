@@ -33,12 +33,12 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-    public void Menu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-    public void Reset()
+    public void Restart()
     {
         SceneManager.LoadScene("Level");
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
